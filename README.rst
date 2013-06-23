@@ -1,7 +1,7 @@
 Credis
 ======
 
-Developed by Sergey Kirillov and Sergiy Korzh
+Developed by Sergey Kirillov and Sergiy Korzh in 25 hours.
 
 
 
