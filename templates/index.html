@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block topbar %}
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		var mapCanvas = $("#mapCanvasMatch");
+		initMap(mapCanvas);
+	}); 
+</script>
+
+	<a class="lwm-signout-btn" href="/logout/">Sign Out</a>
+{% endblock %}
+
+{% block content %}
+
+	<div class="lwm-main-block">
+
+		<section id="lwm-map-match">
+			<div id="mapCanvasMatch">
+			</div>		
+		</section>
+
+		<aside class="lwm-logged-block">
+			<h3>Your lunch time</h3>
+			<figure data-switch="enabled">
+				<p>Mon</p>
+				<time>13:30 - 12:45</time>
+			</figure>
+			<figure data-switch="enabled">
+				<p>Tue</p>
+				<time>15:30 - 16:00</time>
+			</figure>
+			<figure data-switch="enabled">
+				<p>Wed</p>
+				<time>13:30 - 12:45</time>
+			</figure>
+			<figure data-switch="enabled">
+				<p>Thu</p>
+				<time>12:30 - 13:15</time>
+			</figure>
+			<figure data-switch="disabled">
+				<p>Fri</p>
+				<time>hh:mm</time>
+			</figure>
+			<figure data-switch="enabled">
+				<p>Sat</p>
+				<time>13:30 - 12:15</time>
+			</figure>
+			<figure data-switch="disabled">
+				<p>Sun</p>
+				<time>hh:mm</time>
+			</figure>
+			<button>Edit</button>
+		</aside>
+		<br class="lwm-clear" />
+		<br class="lwm-clear" />
+
+	<div class="lwm-match-requests">
+		<div class="lwm-match-requests-title">
+			<h4>People who want to have a lunch with you</h4>
+		</div>
+
+		<div class="lwm-match-requests-list">
+			{% for offer in offers %}
+				<article class="lwm-person-profile lwm-offer">
+					<img src="{{ offer.initiator.picture_url }}" class="lwm-person-avatar" alt="" />
+
+					<span class="lwm-person-name">{{offer.initiator.first_name}} {{offer.initiator.last_name[0]+'.'}}</span>
+					<span class="lwm-person-about">{{offer.initiator.about}}</span>
+					<span class="lwm-person-about">{{offer.venue.name}}</span>
+					<span class="lwm-person-about">{{offer.time}}</span>
+					
+
+					<!--button class="lwm-person-btn ignore">Ignore</button-->
+					<form class="lunchaccept">
+						<input type="hidden" name="offer_id" value="{{offer.id}}">
+						<button class="lwm-person-btn request_lunch"><i class="icon-refresh icon-spin" style="display:none"></i> <span>Lunch</span></button>
+					</form>
+				</article>
+
+
+			{% endfor %}
+		</div>
+	</div>
+
+
+	<div class="lwm-match-nearby">
+		<div class="lwm-match-nearby-title">
+			<h4>Choose your "co-luncher":</h4>
+			
+		</div>
+
+		<div class="lwm-match-nearby-list">
+		  {% for user_info in matched_users %}
+
+			<article class="lwm-person-profile">
+				<img src="{{ user_info.user.picture_url }}" class="lwm-person-avatar" alt="" />
+
+				<span class="lwm-person-name" title="{{user_info.score}}">{{user_info.user.first_name}} {{user_info.user.last_name[0]+'.'}}</span>
+				<span class="lwm-person-about">{{user_info.user.about}}</span>
+				{% if user_info.common_interests %}
+				<div class="lwm-person-tags">
+					<!-- Common interests: -->
+					{% for i in user_info.common_interests%}
+						{% if not loop.first %}, {% endif %}
+						<span>#{{ i.name }}</span>
+					{% endfor %}
+				</div>
+				{% endif %}
+				
+				<div class="lwm-person-distance" title="{{user_info.user.location}}">
+					<span>{{ user_info.distance }} m</span>
+				</div>
+
+				<!--
+				<div class="lwm-person-lunch-time">Possible lunch time: 12:00-14:00</div>
+				-->
+
+				{% if user_info.common_friends %}
+				<div class="lwm-person-friends">
+					<div>5 mutual friends:</div>
+					{% for i in user_info.common_friends[:5]%}
+						<img src="{{ i.picture_url }}" title="{{ i.first_name }} {{ i.last_name }}">
+					{% endfor %}
+					{% set other_friends = user_info.common_friends[5:] %}
+					{% if other_friends %} 
+						and {{other_friends|length}} more
+					{% endif %}
+
+				</div>
+				{% endif %}
+
+				<!--button class="lwm-person-btn ignore">Ignore</button-->
+				<form class="lunchoffer">
+					<input type="hidden" name="user_id" value="{{user_info.user.fb_id}}">
+				<select name="venue_id">
+					{% for venue in user_info.user.venues %}
+					<option value="{{ venue.fs_id }}">{{ venue.name }}</option>
+					{% endfor %}
+				</select>
+				<input type="text" name="time" placeholder="hh:mm" size="5" style="width:50px">
+				<button class="lwn-person-btn request_lunch"><i class="icon-refresh icon-spin" style="display:none"></i> <span>Offer lunch</span></button>
+				</form>
+			</article>
+
+		  {% endfor %}
+		</div>
+	</div>
+
+<br /> <br /> <br /> <br />
+
+</section>
+<script type="text/javascript">
+
+$('.lunchoffer').submit(function(evt) {
+	evt.preventDefault();
+
+	var self = this;
+
+	var data = $(self).serialize();
+	$('input,button,select', self).attr('disabled', '1');
+	$('.icon-refresh', self).show();
+
+	$.post('/api/offer/', data).then(function(){
+		$('.icon-refresh', self).hide();
+    	$('button span', self).text('Offer sent');
+	}, function() {
+		$('.icon-refresh', self).hide();
+    	$('input,button,select', self).removeAttr('disabled');		
+	});
+});
+
+
+$('.lunchaccept').submit(function(evt) {
+	evt.preventDefault();
+
+	var self = this;
+
+	var offer_id = $('input[type=hidden]').val();
+
+	$('input,button', self).attr('disabled', '1');
+	$('.icon-refresh', self).show();
+
+	$.post('/api/offer/' + offer_id + '/accept/').then(function(){
+		$('.icon-refresh', self).hide();
+		$('.lwm-offer, .lwm-match-nearby').not($(self).parents('article')).fadeOut('slow');
+    	$('button span', self).text('Done. Have a good time!');
+	}, function() {
+		$('.icon-refresh', self).hide();
+    	$('input,button', self).removeAttr('disabled');		
+	});
+});
+
+</script>
+{% endblock%}

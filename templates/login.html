@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block topbar %}
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		var mapCanvas = $("#mapCanvasTitle");
+		//alert(mapCanvas.get(0));
+		initMap(mapCanvas);
+	}); 
+
+
+	function signIn(startLocation) {
+		facebookLogin();
+		// if (startLocation) {
+		// 	sendCurrentData(facebookLogin);
+		// }
+		// else
+		// 	facebookLogin();
+	}
+
+
+	function facebookLogin() {
+		FB.login(function(response) {
+			if (response.authResponse) {
+				sendCurrentData(function() {
+					window.location = '/login/';	
+				})
+				
+			} else {
+				console.log('User cancelled login or did not fully authorize.');
+			}
+		}, {scope: 'email,offline_access,user_about_me,user_birthday,user_activities,user_interests'});		
+	}
+
+	function sendCurrentData(onSuccess) {
+		var mapCanvas = $("#mapCanvasTitle");
+		var pos = getMarkerLocation(mapCanvas);
+		var requestData = {};
+		requestData.position = [pos.lat(), pos.lng()];
+
+		requestData.lunchTime = [
+			{day:1, time1:"12:00", time2:"14:00"}, 
+			{day:2, time1:"12:00", time2:"14:00"}, 
+			{day:3, time1:"12:00", time2:"14:00"}, 
+			{day:4, time1:"12:00", time2:"14:00"}, 
+			{day:5, time1:"12:00", time2:"14:00"}
+		];
+
+		requestData.venues = [];
+		$('input:checkbox[name=venue]:checked').each(function( index ) {
+			//console.log( $(this).val() );
+			requestData.venues.push($(this).val());
+		});
+
+		//alert(venues);
+
+		//alert(JSON.stringify(requestData));
+		$.ajax({
+			type: "post",
+			data: JSON.stringify(requestData),
+			contentType: "application/json",
+			url: "/api/saveSessionData/",
+			timeout: 30000,
+			success: function(data) {
+				onSuccess(data)
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+			}
+		});
+	}
+
+	function mapMarkerPositionChanged(loc){
+		reloadVenues(loc);
+	}
+
+	function reloadVenues(loc) {
+		  $('.where_container').html('<figure><p>loading...</p></figure>')
+		  $.getJSON('/api/venues/' + loc.jb + ',' + loc.kb).then(function(data){
+			var bits = [];
+			for (var i=0;i<data.venues.length;i++) {
+			  var venue = data.venues[i];
+			  bits.push('<figure><p><input type="checkbox" name="venue" value="' + venue.id + '"> <label for="venue">' + venue.name + '</label></p></figure>');
+			}
+
+			$('.where_container').html(bits.join(''));
+		  });
+		}
+
+
+</script>
+
+	<div class="lwm-facebook-btn" onclick="signIn(false)">Login via Facebook</div>
+
+{% endblock %}
+
+{% block content %}
+	<div id="fb-root"></div>
+	<hgroup>
+		<h1>Find inspiration, new ideas and contacs by having lunch with new people.</h1>
+	</hgroup>
+
+	<div class="lwm-main-block">
+		<section id="mapCanvasTitle">
+		<!--<div id="mapCanvasTitle">
+		</div>
+		-->
+		</section>
+		<aside class="lwm-start-block">
+			<h3>Where?</h3>			
+			<div class="where_container">
+			</div>
+		</aside>
+		
+
+		<aside class="lwm-start-block" style="margin-top:10px;">
+			<h3>When ?</h3>
+			<figure class="lwm-active">
+				<p>Monday</p>
+				<input type="text" /><span>-</span><input type="text" />
+			</figure>
+			<figure>
+				<p>Tuesday</p>
+				<input type="text" /><span>-</span><input type="text" />
+			</figure>
+			<figure>
+				<p>Wednesday</p>
+				<input type="text" /><span>-</span><input type="text" />
+			</figure>
+			<figure>
+				<p>Thursday</p>
+				<input type="text" /><span>-</span><input type="text" />
+			</figure>
+			<figure>
+				<p>Friday</p>
+				<input type="text" /><span>-</span><input type="text" />
+			</figure>
+			<figure>
+				<p>Saturday</p>
+				<input type="text" /><span>-</span><input type="text" />
+			</figure>
+			<figure>
+				<p>Sunday</p>
+				<input type="text" /><span>-</span><input type="text" />
+			</figure>
+			<button onclick="signIn(true)">Find me someone</button>
+
+			<!--
+			<div class="fb-like-box"
+				data-href="http://www.facebook.com/pages/Tutorle/284913024858560"
+				data-width="278" data-height="300" data-show-faces="true"
+				data-stream="false" data-header="false">
+			</div>
+			-->
+		</aside>
+		<br class="lwm-clear" />
+		<div class="lwm-title-counters">
+			<p>Lunchers</p>
+			<div>194</div>
+		</div>
+		<div class="lwm-title-counters">
+			<p>lunches done</p>
+			<div>8 456</div>
+		</div>
+		<div class="lwm-title-counters">
+			<p>lunching now</p>
+			<div>11 457</div>
+		</div>
+		<div class="lwm-title-counters lwm-gold">
+			<p>seeking for lunch</p>
+			<div>12 583</div>
+		</div>
+	</div>
+
+</section>
+{% endblock%}

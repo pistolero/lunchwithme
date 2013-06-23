@@ -1,0 +1,517 @@
+
+
+/* ---------------------- NEW STYLES ------------------ */
+
+
+.lwm-page {
+    width:900px;
+    margin: 0 auto;
+    background: #fff;
+    padding-top:12px
+}
+
+
+.lwm-main-block {
+	width: 941px;
+	margin: 0 auto;
+	padding-top:10px;
+}
+
+
+/* logo */
+.lwm-logo{
+    
+}
+
+.lwm-logo a{
+    font: normal 35px "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    color: #4795E7;
+    background: url('../images/logo.png') no-repeat;
+    padding: 7px 0 5px 46px;
+    text-decoration: none;
+}
+
+/* navigation */
+.lwm-navigation{
+    top: 18px;
+}
+
+.lwm-navigation a{
+    color: #0666CB;
+    padding: 0 7px;
+    text-decoration: none;
+    font: normal 16px Tahoma;
+}
+
+.lwm-navigation a:hover{
+    text-decoration: underline;
+}
+
+/* title page */
+.lwm-title-block {
+    width: 980px;
+    margin: 0 0 30px 0;
+}
+
+.lwm-start-form-title {
+	font-size: 18px;
+	background: #BBDDBB;
+	padding: 4px;
+
+}
+
+.lwm-match-info-block {
+	padding-bottom: 10px;
+}
+
+
+.lwm-match-requests {
+	padding-bottom: 20px;
+}
+
+.lwm-match-requests-title{
+	position: relative;
+}
+
+.lwm-match-requests-title h4{
+	color: #95A5A6;
+	font: normal 24px Arial;
+	border-bottom: 2px solid #D5D5D5;
+}
+
+
+
+.lwm-match-nearby {
+	padding-bottom: 20px;
+}
+
+.lwm-match-nearby-title{
+	position: relative;
+}
+
+.lwm-match-nearby-title h4{
+	color: #95A5A6;
+	font: normal 24px Arial;
+	border-bottom: 2px solid #D5D5D5;
+}
+
+.lwm-see-all{
+	color: #95A5A6;
+	font: normal 24px Arial;
+	border-bottom: 2px solid #95A5A6;
+	position: absolute;
+	top: 0;
+	right: 10px;
+}
+
+
+.lwm-person-profile {
+	float: left;
+	background: #f7dc6e;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	position: relative;
+	width: 293px;
+	height: 170px;
+	padding: 10px;
+	margin:10px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.lwm-person-info {
+}
+
+.lwm-person-avatar{
+	
+}
+
+.lwm-person-name{
+	vertical-align: top;
+	font: bold 24px Arial;
+	color: #4e4e4e;
+	padding: 0 0 0 10px;
+}
+
+.lwm-person-about{
+	display: inline-block;
+	vertical-align: top;
+	font: italic 12px Arial;
+	color: #4E4E4E;
+	padding: 10px 0 0 0;
+}
+
+.lwm-person-tags{
+	position: absolute;
+	top: 40px;
+	left: 90px;
+	width: 150px;
+	max-width: 120px;
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
+
+.lwm-person-tags span{
+	color: #4e4e4e;
+	font: bold 12px Arial;
+	text-decoration: none;
+}
+
+.lwm-person-friends div{
+	font: normal 12px Arial;
+	color: #4e4e4e;
+}
+
+.lwm-person-friends img{
+	margin: 1px 5px 0 0;
+	width: 25px;
+	height: 25px;
+}
+
+.lwm-person-btn{
+	color: #fff;
+	font: bold 20px Arial;
+	border: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	padding: 2px 10px;
+	float: right;
+	margin: 3px 5px 0;
+	cursor: pointer;
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+
+}
+
+.lwm-person-btn.request_lunch{
+	background: #57a2c1;
+}
+
+.lwm-person-btn.request_lunch[disabled] {
+	background: #999;
+}
+
+.lwm-person-btn.ignore{
+	background: #ea6945;
+}
+
+
+
+.lwm-person-distance{
+	background: url('images/map-mark.png') no-repeat;
+	width: 52px;
+	height: 56px;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+.lwm-person-distance span {
+	font-size: 14px;
+	font-weight: bold;
+	color: #666;
+	margin-top: 40px;
+	display:block;
+}
+
+
+
+
+/*---- new  css --*/
+body{
+	margin: 0;
+	padding: 0;
+}
+body > header{
+	background: #f1c40d;
+	height: 60px;
+}
+
+body > header > section, body > div{
+	width: 941px;
+	margin: 0 auto;
+}
+
+.lwm-logo{
+	background: url('images/lwm-logo.png') no-repeat;
+	width: 162px;
+	height: 22px;
+	float: left;
+	margin: 20px 0 0 0;
+}
+
+.lwm-sub-logo{
+	font: italic 14px Arial;
+	color: #fff;
+	float: left;
+	margin: 20px 0 0 0;
+}
+
+.lwm-facebook-btn{
+	font: normal 11px Open Sans;
+	color: #fff;
+	float: right;
+	margin: 20px 0 0 0;
+	background: #2f93d6;
+	padding: 5px 15px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	cursor: pointer;
+}
+
+.lwm-signout-btn {
+	font: normal 11px Open Sans;
+	color: #fff;
+	float: right;
+	margin: 20px 0 0 0;
+	background: #555599;
+	padding: 5px 15px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	cursor: pointer;
+}
+
+
+hgroup > h1 {
+	font: bold 22px Arial;
+	color: #95a5a6;
+	text-align: center;
+}
+
+#mapCanvasTitle {
+	width:670px;
+	height: 620px;
+	border: 3px solid #e0e0e0;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	float: left;
+}
+
+#mapCanvasMatch {
+	width:670px;
+	height: 214px
+}
+
+#lwm-map-match{
+	height: 215px;
+	width: 670px;
+	border: 3px solid #e0e0e0;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	float: left;
+}
+
+.lwm-start-block, .lwm-logged-block {
+	float: right;
+	width: 234px;
+	height: 285px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	background: #ecf0f1;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.lwm-start-block  h3, .lwm-logged-block h3{
+	background: #95a5a6;
+	font: bold 12px Arial;
+	color: #fff;
+	text-align: center;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 11px 0;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+}
+
+.lwm-start-block figure{
+	font: normal 14px Arial;
+	color: #34485e;
+	margin: 0;
+	padding: 8px 0 8px 11px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.lwm-start-block figure:first-of-type{
+	margin: 2px 0 0 0;
+}
+
+.lwm-start-block figure p{
+	margin: 0;
+	float: left;
+}
+
+.lwm-start-block figure span{
+	float: right;
+	visibility: hidden;
+}
+
+.lwm-start-block figure input{
+	visibility: hidden;
+	width: 41px;
+	height: 19px;
+	font: normal 14px Open Sans;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	border: none;
+	outline: none;
+	float: right;
+	margin: 0 10px;
+}
+
+.lwm-start-block figure.lwm-active{
+	background: #3397db !important;
+	color: #fff;
+	cursor: default;
+}
+
+.lwm-start-block figure.lwm-active p{
+	font-weight: bold;
+}
+
+.lwm-start-block figure.lwm-active input, .lwm-start-block figure.lwm-active span{
+	visibility: visible;
+}
+
+.lwm-start-block figure:hover{
+	background: #e4e8e9;
+}
+
+.lwm-start-block figure:last-of-type:hover{
+	border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+}
+
+.lwm-start-block button{
+	background: #36cc71;
+	font: bold 17px Arial;
+	color: #fff;
+	width: 234px;
+	height: 43px;
+	text-align: center;
+	border: none;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	margin: 11px 0 0 0;
+	cursor: pointer;
+}
+
+.lwm-clear{
+	clear: both;
+}
+
+.lwm-title-counters{
+	background: #ecf0f1;
+	text-align: center;
+	width: 161px;
+	height: 102px;
+	margin: 10px 10px 0 0;
+	padding: 31px 0 0 0;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	color: #34495e;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	float: left;
+}
+
+.lwm-title-counters p{
+	font: bold 16px Arial;
+	margin: 0;
+}
+
+.lwm-title-counters div{
+	font: bold 29px Arial;
+}
+
+.lwm-gold{
+	color: #f39d13;
+}
+
+.lwm-logged-block{
+	height: 215px;
+}
+
+.lwm-logged-block figure{
+	width: 63px;
+	float: left;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	text-align: center;
+	margin: 10px 0px 10px 10px;
+	padding: 6px 0 5px 0;
+	cursor: pointer;
+}
+
+.lwm-logged-block figure p {
+	margin: 0;
+	font: bold 14px Arial;
+}
+
+.lwm-logged-block figure time{
+	font: normal 9px Arial;
+	color: #eceff1;
+}
+
+.lwm-logged-block figure[data-switch="enabled"]{
+	background: #2f93d6;
+	color: #fff;
+}
+
+.lwm-logged-block figure[data-switch="disabled"]{
+	background: #95a5a6;
+	color: #34485e;
+	border: 2px solid #7f8c8e;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	padding: 4px 0 3px 0;
+}
+
+.lwm-logged-block figure[data-switch="disabled"] time{
+	color: #34485e;
+}
+
+.lwm-logged-block button{
+	background: #95a5a6;
+	color: #fafdff;
+	font: bold 12px Arial;
+	border: 2px solid #7f8c8e;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 3px 20px;
+	float: right;
+	margin-right: 13px;
+	margin-top: 23px;
+	margin: 23px 13px 0 0;
+	cursor: pointer;
+}
+
+.where_container {
+	max-height: 285px;
+	overflow-y: auto;	
+}
+
+.where_container figure input {
+	visibility: visible;
+	margin: 0;
+	padding: 0;
+	width: 19px;
+	height: 19px;
+	float: none;
+}
+
+.lwm-match-requests-list {
+	overflow: hidden;;
+	width: 100%;
+}
+
+
+.lwm-match-nearby {
+	overflow: hidden;;
+	width: 100%;	
+}
