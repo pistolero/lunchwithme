@@ -1,3 +1,11 @@
+Credis
+======
+
+Developed by Sergey Kirillov and Sergiy Korzh
+
+
+
+
 Facebook/Heroku sample app -- Python
 ====================================
 
