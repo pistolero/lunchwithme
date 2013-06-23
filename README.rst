@@ -1,7 +1,7 @@
 Credis
 ======
 
-Developed by Sergey Kirillov and Sergiy Korzh in 25 hours.
+Developed by Sergey Kirillov and Sergiy Korzh in 25 hours, available at http://lunchwithme.herokuapp.com
 
 
 
